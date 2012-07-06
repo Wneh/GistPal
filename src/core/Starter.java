@@ -10,6 +10,7 @@ import java.io.*;
 
 import javax.swing.JOptionPane;
 
+import pojo.Gist;
 import pojo.GistLister;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,28 +33,35 @@ public class Starter {
 			  				"\"nummer 2\": {\"raw_url\": \"https://gist.github.com/raw/3042640/d64f464f51be6af919ccaf789b4e52c33fb135d7/nummer 2\",\"type\": \"text/plain\",\"filename\": \"nummer 2\",\"language\": null,\"size\": 17 }}," +
 			  				"\"description\": \"MED TVÅ ST FILER\",\"comments\": 0,\"html_url\": \"https://gist.github.com/3042640\", \"id\": \"3042640\",\"url\": \"https://api.github.com/gists/3042640\",\"created_at\": \"2012-07-03T20:08:13Z\"}]";
 			
-			URL oracle = new URL("https://api.github.com/users/Wneh/gists");			
+			//URL oracle = new URL("https://api.github.com/users/Wneh/gists");	
+			URL oracle = new URL("https://api.github.com/gists/2841832");
 			//URL oracle = new URL("https://github.com/login/oauth/authorize?client_id=690ae5aa9253c0ed20cd&scope=gist");
 			//URL oracle = new URL("https://api.github.com/gists");
 	        URLConnection yc = oracle.openConnection();
 	        
 	        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-	        String inputLine = in.readLine();
-//	        String lastline;
-//	        while ((inputLine = in.readLine()) != null){
-//	        	lastline = inputline
-//	            System.out.println(inputLine);
-//	        }
+	        String inputLine;
+	        String lastline = "";
+	        int r = 0;
+	        while ((inputLine = in.readLine()) != null){
+	        	if(inputLine != null)
+	        		lastline = inputLine;
+	            System.out.println(inputLine);
+	            r++;
+	        }
+	        
 	        in.close();
 	        
-	        System.out.println("Inputline efter: " + inputLine);
+	        System.out.println("------------------------------------ R = " + r );
 	        
 	        ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 	        //User us = mapper.readValue(merJSON, User.class);
 	        //System.out.println(us.toString());
 	        
-	        GistLister[] gi = mapper.readValue(inputLine, GistLister[].class);
-	        System.out.println("User: "+gi[0].getUser());
+	        Gist gi = mapper.readValue(lastline, Gist.class);
+	        System.out.println("Done");
+	        System.out.println(gi.getFiles().get("latency.txt").getContent());
+	        /*System.out.println("User: "+gi[0].getUser());
 	        System.out.println("git_pull_url: "+gi[0].getGit_pull_url());
 	        System.out.println("updated_at: " + gi[0].getUpdated_at());
 	        System.out.println("git_push_url: "+gi[0].getGit_push_url());
@@ -64,7 +72,7 @@ public class Starter {
 	        System.out.println("html_url: "+gi[0].getHtml_url());
 	        System.out.println("id: "+ gi[0].getId());
 	        System.out.println("url: " + gi[0].getUrl());
-	        System.out.println("created_at: " + gi[0].getCreated_at());
+	        System.out.println("created_at: " + gi[0].getCreated_at());*/
 	        
 	        
 	        

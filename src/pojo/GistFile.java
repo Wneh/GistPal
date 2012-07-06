@@ -9,6 +9,7 @@ public class GistFile {
 	private String filename;
 	private String language;
 	private int size;
+	private String content;
 	
 	public String toString(){
 		return  raw_url + ", " + type + ", " + filename + ", " + language + ", " + size;
@@ -43,5 +44,11 @@ public class GistFile {
 	}
 	public void setSize(int size) {
 		this.size = size;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

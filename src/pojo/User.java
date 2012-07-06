@@ -1,7 +1,5 @@
 package pojo;
 
-import java.net.URL;
-
 public class User {
 	private String avatar_url;
 	private String gravatar_id;
