@@ -1,0 +1,5 @@
+#Ignore the properties file
+config.properties
+
+#And all the java class files
+*.class
