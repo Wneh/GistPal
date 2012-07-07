@@ -1,4 +1,7 @@
 package core;
+import gui.GistListViewer;
+import gui.GistViewer;
+
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,6 +64,13 @@ public class Starter {
 	        Gist gi = mapper.readValue(lastline, Gist.class);
 	        System.out.println("Done");
 	        System.out.println(gi.getFiles().get("latency.txt").getContent());
+	        
+	        PropertiesIO pio = new PropertiesIO();
+	        pio.setProperty("user", "Wneh");
+	        
+	        new GistViewer(gi);
+	        //new GistListViewer().fillList(gi[0]);
+	        
 	        /*System.out.println("User: "+gi[0].getUser());
 	        System.out.println("git_pull_url: "+gi[0].getGit_pull_url());
 	        System.out.println("updated_at: " + gi[0].getUpdated_at());

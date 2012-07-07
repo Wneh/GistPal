@@ -15,7 +15,6 @@ public class GistLister {
 	private String git_push_url;
 	@JsonProperty("public")
 	private boolean _public;
-	//private GistFileHolder files;
 	private LinkedHashMap<String,GistFile> files; 
 	private String description;
 	private int comments;
