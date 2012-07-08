@@ -13,7 +13,6 @@ import java.io.*;
 
 import javax.swing.JOptionPane;
 
-import pojo.ArrayWrapper;
 import pojo.Gist;
 import pojo.GistLister;
 
@@ -65,9 +64,7 @@ public class Starter {
 	        
 	        //GistLister[] gi = mapper.readValue(lastline, GistLister[].class);
 	        //ArrayWrapper<GistLister> wrapper = mapper.readValue(lastline, new TypeReference<ArrayWrapper<GistLister>>() { });
-	        ArrayWrapper<GistLister> wrapper = readValue(lastline,GistLister[].class);
 	        System.out.println("Done");
-	        System.out.println(wrapper.getHolder()[0].getDescription());
 	        
 	        //System.out.println(gi.getFiles().get("latency.txt").getContent());
 	        
@@ -98,12 +95,6 @@ public class Starter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private ArrayWrapper<GistLister> readValue(String lastline,
-			Class<GistLister[]> class1) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public static void main(String[] args) {

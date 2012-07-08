@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import pojo.ArrayWrapper;
 import pojo.Gist;
 import pojo.GistLister;
 
@@ -72,7 +71,13 @@ public class NetWork {
 		return gists;
 		
 	}
-	
+	/**
+	 * Deserialize the incoming json string to the giving java class  
+	 * 
+	 * @param input Data in json format
+	 * @param inputType The class to extract the information from input too.
+	 * @return Returns in the same format as in inputType
+	 */
 	private <T> T jsonToPojo(String input,Class<T> inputType){
 		try {
 			return inputType.cast(mapper.readValue(input, inputType));
