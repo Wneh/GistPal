@@ -23,9 +23,22 @@ public class NetWork {
 	public NetWork(){
 		mapper = new ObjectMapper();
 	}
+	/**
+	 * Gets the gist with the given ID from the github api
+	 * 
+	 * @param id The id for the gist
+	 * @return The gist with the given id in form of the pojo.Gist.java class
+	 */
 	public Gist getGist(String id) {
 		return getGist(id,"EMPTY");
 	}
+	/**
+	 * Gets the gist with the given ID from the github api
+	 * 
+	 * @param id The id for the gist
+	 * @param access_token The token to gaining access to private gist
+	 * @return The gist with the given id in form of the pojo.Gist.java class
+	 */
 	public Gist getGist(String id,String access_token){
 		String urlcreater = "https://api.github.com/gists/"+id;
 		
