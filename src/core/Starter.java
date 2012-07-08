@@ -13,9 +13,11 @@ import java.io.*;
 
 import javax.swing.JOptionPane;
 
+import pojo.ArrayWrapper;
 import pojo.Gist;
 import pojo.GistLister;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Starter {
@@ -36,8 +38,8 @@ public class Starter {
 			  				"\"nummer 2\": {\"raw_url\": \"https://gist.github.com/raw/3042640/d64f464f51be6af919ccaf789b4e52c33fb135d7/nummer 2\",\"type\": \"text/plain\",\"filename\": \"nummer 2\",\"language\": null,\"size\": 17 }}," +
 			  				"\"description\": \"MED TVÅ ST FILER\",\"comments\": 0,\"html_url\": \"https://gist.github.com/3042640\", \"id\": \"3042640\",\"url\": \"https://api.github.com/gists/3042640\",\"created_at\": \"2012-07-03T20:08:13Z\"}]";
 			
-			//URL oracle = new URL("https://api.github.com/users/Wneh/gists");	
-			URL oracle = new URL("https://api.github.com/gists/2841832");
+			URL oracle = new URL("https://api.github.com/users/Wneh/gists");	
+			//URL oracle = new URL("https://api.github.com/gists/2841832");
 			//URL oracle = new URL("https://github.com/login/oauth/authorize?client_id=690ae5aa9253c0ed20cd&scope=gist");
 			//URL oracle = new URL("https://api.github.com/gists");
 	        URLConnection yc = oracle.openConnection();
@@ -49,26 +51,30 @@ public class Starter {
 	        while ((inputLine = in.readLine()) != null){
 	        	if(inputLine != null)
 	        		lastline = inputLine;
-	            System.out.println(inputLine);
+	            //System.out.println(inputLine);
 	            r++;
 	        }
 	        
 	        in.close();
-	        
+	        System.out.println(lastline);
 	        System.out.println("------------------------------------ R = " + r );
 	        
 	        ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 	        //User us = mapper.readValue(merJSON, User.class);
 	        //System.out.println(us.toString());
 	        
-	        Gist gi = mapper.readValue(lastline, Gist.class);
+	        //GistLister[] gi = mapper.readValue(lastline, GistLister[].class);
+	        //ArrayWrapper<GistLister> wrapper = mapper.readValue(lastline, new TypeReference<ArrayWrapper<GistLister>>() { });
+	        ArrayWrapper<GistLister> wrapper = readValue(lastline,GistLister[].class);
 	        System.out.println("Done");
-	        System.out.println(gi.getFiles().get("latency.txt").getContent());
+	        System.out.println(wrapper.getHolder()[0].getDescription());
 	        
-	        PropertiesIO pio = new PropertiesIO();
-	        pio.setProperty("user", "Wneh");
+	        //System.out.println(gi.getFiles().get("latency.txt").getContent());
 	        
-	        new GistViewer(gi);
+	        //PropertiesIO pio = new PropertiesIO();
+	        //pio.setProperty("user", "Wneh");
+	        
+	        //new GistViewer(gi);
 	        //new GistListViewer().fillList(gi[0]);
 	        
 	        /*System.out.println("User: "+gi[0].getUser());
@@ -86,10 +92,18 @@ public class Starter {
 	        
 	        
 	        
+	        
+	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private ArrayWrapper<GistLister> readValue(String lastline,
+			Class<GistLister[]> class1) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static void main(String[] args) {
