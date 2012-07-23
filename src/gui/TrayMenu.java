@@ -85,7 +85,7 @@ public class TrayMenu implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == listGist){
-                	// TODO      
+                	new GistListViewer(true);      
                 }
                 else if(e.getSource() == searchGist){
                 	// TODO
