@@ -26,7 +26,7 @@ public class TrayMenu implements ActionListener{
                 messageVisible = false;
                 
                 if(SystemTray.isSupported()){
-                        trayImage = Toolkit.getDefaultToolkit().getImage("\\icon\\document-new.png");
+                        trayImage = Toolkit.getDefaultToolkit().getImage("icons\\document-new.png");
                         trayIcon = new TrayIcon(trayImage, "GistPal");
                         tray = SystemTray.getSystemTray();
                         
