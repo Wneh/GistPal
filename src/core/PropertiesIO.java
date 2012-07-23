@@ -8,6 +8,13 @@ import java.util.Properties;
 
 public class PropertiesIO {
 	
+	
+	/**
+	 * Available key to use:
+	 * user - gives the guthub username
+	 * access_token - gives the token that is used to get private gists
+	 */
+	
 	private final String FILENAME = "config.properties";
 	private Properties prop;
 	
