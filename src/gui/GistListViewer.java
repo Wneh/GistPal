@@ -26,7 +26,7 @@ public class GistListViewer extends JFrame{
 	
 	private JList list;
 	
-	private String[] columnNames = {"Name","ID","Description"};  
+	private String[] columnNames = {"Name","ID","Number of files"};  
 	private	DefaultTableModel tableModel;
 	private JTable table;
 	private JScrollPane scrollpane;
@@ -93,22 +93,8 @@ public class GistListViewer extends JFrame{
 		//Download the gist from github.
 		GistLister[] glTemp = nw.getProfile(userName);
 		
-		/**
-		 * Never found a casw were the response for a user profile
-		 * contains more then 1.
-		 * 
-		 * So if it do warn the user that something might not be correct.
-		 */
-		if(glTemp.length >= 2){
-			//Warn the user
-			JOptionPane.showMessageDialog(null,"There is more data that is now showing" +
-												"\nFor dev: The profile reponse contained more then 1 object");
-		}
-		JOptionPane.showMessageDialog(null,"GistListSize:" + glTemp.length);
-		
 		//Display them.
 		if(glTemp.length > 0){
-			fillList(glTemp[1]);
 			for(int r = 0; r < glTemp.length; r++){
 				fillList(glTemp[r]);
 			}
@@ -128,21 +114,25 @@ public class GistListViewer extends JFrame{
 	public void fillList(GistLister gl){
 		
 		LinkedHashMap<String, GistFile> files = gl.getFiles();
-		int lastIndex = 0;
+//		int lastIndex = 0;
+//		
+//		Iterator<String> iterator = files.keySet().iterator();
+//		int i = 0;
+//		while (iterator.hasNext()){
+//			String key = (String) iterator.next();
+//			//GistFile file = (GistFile)files.get(key);
+//			
+//			//listContent.add(lastIndex, file.getFilename());
+//			//Create temp array to hold the data
+//			String[] tempArray = {file.getFilename(),gl.getId(),gl.getDescription()};
+//			tableModel.addRow(tempArray);
+//			//System.out.println(key + "\t\t: \t" + file.getFilename());
+//		
+//			//jtas.add(new JTextArea(file.getContent()));
+//		}	
 		
-		Iterator<String> iterator = files.keySet().iterator();
-		while (iterator.hasNext()){
-			String key = (String) iterator.next();
-			GistFile file = (GistFile)files.get(key);
-			
-			//listContent.add(lastIndex, file.getFilename());
-			//Create temp array to hold the data
-			String[] tempArray = {file.getFilename(),gl.getId(),gl.getDescription()};
-			tableModel.addRow(tempArray);
-			//System.out.println(key + "\t\t: \t" + file.getFilename());
-		
-			//jtas.add(new JTextArea(file.getContent()));
-		}	
+		String[] tempArray = {gl.getDescription(),gl.getId(),""+files.size()};
+		tableModel.addRow(tempArray);
 	}
 	
 
