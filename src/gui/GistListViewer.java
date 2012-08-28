@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Properties;
@@ -22,7 +24,7 @@ import core.PropertiesIO;
 import pojo.GistFile;
 import pojo.GistLister;
 
-public class GistListViewer extends JFrame{
+public class GistListViewer extends JFrame implements MouseListener{
 	
 	private JList list;
 	
@@ -34,6 +36,8 @@ public class GistListViewer extends JFrame{
 	private DefaultListModel listContent;
 	private PropertiesIO propIO;
 	private NetWork nw;
+	
+	private GistLister[] glGlobal;
 
 	/**
 	 * Shows a window that list all the gist for the given user.
@@ -68,6 +72,8 @@ public class GistListViewer extends JFrame{
 		//c.add(list,BorderLayout.CENTER);
 		c.add(scrollpane,BorderLayout.CENTER);
 		
+		table.addMouseListener(this);
+		
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("GistPal");
@@ -92,6 +98,8 @@ public class GistListViewer extends JFrame{
 		
 		//Download the gist from github.
 		GistLister[] glTemp = nw.getProfile(userName);
+		//And set the glTemp to glGloboal for future use.
+		glGlobal = glTemp;
 		
 		//Display them.
 		if(glTemp.length > 0){
@@ -134,6 +142,39 @@ public class GistListViewer extends JFrame{
 		String[] tempArray = {gl.getDescription(),gl.getId(),""+files.size()};
 		tableModel.addRow(tempArray);
 	}
-	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		System.out.println("Clicked");
+		//If the source was from the jtable
+		if(arg0.getSource() == table){
+			//and if the person double clicked on a row
+			if(arg0.getClickCount() == 2){
+				int row = table.getSelectedRow();
+				//Get the id from for the row and use it to get the gist and send it to viewer.
+				new GistViewer(nw.getGist(glGlobal[row].getId()));
+			}
+		}
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
