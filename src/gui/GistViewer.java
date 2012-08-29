@@ -31,7 +31,7 @@ public class GistViewer extends JFrame {
 		c.add(jtas.get(0),BorderLayout.CENTER);		
 		
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("GistPal - " + gist.getDescription());
 		setSize(800,600);
 		

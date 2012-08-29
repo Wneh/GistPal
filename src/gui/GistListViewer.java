@@ -75,7 +75,7 @@ public class GistListViewer extends JFrame implements MouseListener{
 		table.addMouseListener(this);
 		
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("GistPal");
 		setSize(800,600);
 		
