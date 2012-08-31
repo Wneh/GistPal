@@ -30,6 +30,9 @@ public class GistViewer extends JFrame {
 	
 	public GistViewer(Gist gistIn){		
 		this.gist = gistIn;
+		//First of all reverse the fileinput
+		LinkedHashMap<String, GistFile> tempLHP = this.reverseLinkedHashMap(gist.getFiles());
+		gist.setFiles(tempLHP);
 		
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -67,7 +70,7 @@ public class GistViewer extends JFrame {
 		while (iterator.hasNext()){
 			String key = (String) iterator.next();
 			GistFile file = (GistFile)files.get(key);
-			System.out.println(key + "\t\t: \t" + file.getFilename());
+			//System.out.println(key + "\t\t: \t" + file.getFilename());
 		
 			jtas.add(new JTextArea(file.getContent()));
 		}
@@ -81,5 +84,29 @@ public class GistViewer extends JFrame {
 			GistFile file = (GistFile)files.get(key);	
 			fileListModel.addElement(file.getFilename());
 		}	
+	}
+	/**
+	 * Reverse the order of the content in the LinkedHashMap that is given as input
+	 * 
+ 	 * @param in The LinkedHashMap that shall be reversed
+	 * @return The reversed order of the content from in.
+	 */
+	private LinkedHashMap<String, GistFile> reverseLinkedHashMap(LinkedHashMap<String, GistFile> in){
+		LinkedHashMap<String, GistFile> out = new LinkedHashMap<String, GistFile>();
+		ArrayList<GistFile> tempHolder = new ArrayList<GistFile>();
+		Iterator<String> iterator = in.keySet().iterator();
+		
+		while(iterator.hasNext()){
+			String key = (String) iterator.next();
+			GistFile file = (GistFile)in.get(key);
+			tempHolder.add(file);
+		}	
+		for(int i = tempHolder.size()-1; i >= 0; i--){
+			GistFile tempGist = tempHolder.get(i);
+			out.put(tempGist.getFilename(), tempGist);
+		}
+		
+		return out;
+		
 	}
 }
